@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vòng Quay May Mắn</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #ccc;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .wheel .segment {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0% 0%;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+        }
+
+        .wheel .segment span {
+            position: absolute;
+            top: -100%;
+            left: 100%;
+            transform-origin: 0% 0%;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        #spin {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #spin:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="wheel" class="wheel"></div>
+    <button id="spin">Quay</button>
+    <script>
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spin');
+        const segments = ['Giải A', 'Giải B', 'Giải C', 'Giải D', 'Giải E', 'Giải F'];
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#F3FF33', '#33FFF7'];
+
+        function createWheel() {
+            const numSegments = segments.length;
+            const angle = 360 / numSegments;
+
+            for (let i = 0; i < numSegments; i++) {
+                const segment = document.createElement('div');
+                segment.classList.add('segment');
+                segment.style.backgroundColor = colors[i];
+                segment.style.transform = `rotate(${i * angle}deg) skewY(-60deg)`;
+                segment.innerHTML = `<span style="transform: skewY(60deg) rotate(${angle / 2}deg);">${segments[i]}</span>`;
+                wheel.appendChild(segment);
+            }
+        }
+
+        function spinWheel() {
+            const numSegments = segments.length;
+            const spinAngle = Math.floor(Math.random() * 360) + 360 * 3; // 3 full rotations
+            wheel.style.transition = 'transform 4s ease-out';
+            wheel.style.transform = `rotate(${spinAngle}deg)`;
+
+            setTimeout(() => {
+                const finalAngle = spinAngle % 360;
+                const segmentIndex = Math.floor(finalAngle / (360 / numSegments));
+                alert(`Chúc mừng! Bạn đã trúng ${segments[numSegments - 1 - segmentIndex]}!`);
+                wheel.style.transition = 'none';
+                wheel.style.transform = 'rotate(0deg)';
+            }, 4000);
+        }
+
+        createWheel();
+        spinBtn.addEventListener('click', spinWheel);
+    </script>
+</body>
+</html>
