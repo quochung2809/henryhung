@@ -70,7 +70,16 @@
     <script>
         const wheel = document.getElementById('wheel');
         const spinBtn = document.getElementById('spin');
-        const segments = ['Giải A', 'Giải B', 'Giải C', 'Giải D', 'Giải E', 'Giải F'];
+
+        // Thêm các phần thưởng vào đây
+        const segments = [
+            'Giải A: Một chiếc điện thoại',
+            'Giải B: Một máy tính bảng',
+            'Giải C: Một chiếc laptop',
+            'Giải D: Một chiếc tai nghe',
+            'Giải E: Một phiếu mua hàng 500k',
+            'Giải F: Một thẻ quà tặng 200k'
+        ];
         const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#F3FF33', '#33FFF7'];
 
         function createWheel() {
